@@ -9,6 +9,8 @@ load_widget_state()
 
 st.set_page_config(initial_sidebar_state="collapsed", layout="wide")
 
+st.write("<h2 align='center'>聊个天儿</h2>", unsafe_allow_html=True)
+
 if "botchat" not in st.session_state:
     st.session_state["botchat"] = deque(["I'm a chatbot with chatgpt API. How can I help you?"])
 if "humanchat" not in st.session_state:
@@ -44,18 +46,14 @@ def on_click_send(msg):
 
     return helper
 
-leftcol, rightcol = st.columns([10,1])
+st.session_state["msg"] = st.text_area("Input", label_visibility="hidden")
 
-with leftcol:
-    st.session_state["msg"] = st.text_input("Input", label_visibility="hidden")
-
-with rightcol:
-    st.write("##")
-    st.button("Send", on_click=on_click_send(st.session_state["msg"]))
+_, mid, _ = st.columns(3)
+mid.button("Send", on_click=on_click_send(st.session_state["msg"]), use_container_width=True)
 
 for i in range(len(st.session_state["humanchat"])-1, -1, -1):
-    message(st.session_state["botchat"][i], is_user=False, avatar_style="thumbs", seed="Callie", key=f"b{i}")
-    message(st.session_state["humanchat"][i], is_user=True, avatar_style="thumbs", seed="Mia", key=f"h{i}")
+    message(st.session_state["botchat"][i], is_user=False, avatar_style="thumbs", seed="Miss kitty", key=f"b{i}")
+    message(st.session_state["humanchat"][i], is_user=True, avatar_style="thumbs", seed="Muffin", key=f"h{i}")
 
 
 
